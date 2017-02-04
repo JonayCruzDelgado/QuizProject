@@ -3,6 +3,9 @@ package es.ulpgc.eite.android.quiz;
 import android.app.Application;
 import android.content.Intent;
 
+import es.ulpgc.eite.android.quiz.screen.cheat.CheatActivity;
+import es.ulpgc.eite.android.quiz.screen.question.QuestionActivity;
+
 public class QuizApp extends Application {
 
   private QuestionState questionState;
