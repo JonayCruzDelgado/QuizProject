@@ -65,7 +65,7 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
     buttonNext.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        onNextBtnClicked();
+        myQuestionPresenter.onNextBtnClicked();
       }
     });
 
@@ -91,10 +91,6 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
 
   private void onFalseBtnClicked() {
     myQuestionPresenter.onAnswerBtnClicked(false);
-  }
-
-  private void onNextBtnClicked(){
-    myQuestionPresenter.onNextBtnClicked();
   }
 
   private void onTrueBtnClicked() {
