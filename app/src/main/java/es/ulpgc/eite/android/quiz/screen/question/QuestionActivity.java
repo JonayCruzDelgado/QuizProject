@@ -1,6 +1,5 @@
 package es.ulpgc.eite.android.quiz.screen.question;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.android.quiz.QuestionStore;
 import es.ulpgc.eite.android.quiz.QuizApp;
-import es.ulpgc.eite.android.quiz.screen.cheat.CheatActivity;
 
 import es.ulpgc.eite.android.quiz.R;
 
@@ -120,8 +118,8 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
 
 
   private void goToCheatScreen(){
-    startActivity(new Intent(this, CheatActivity.class));
-    //quizApp.goToCheatScreen(this);
+
+    quizApp.goToCheatScreen(this);
   }
  @Override
  public void checkAnswerVisibility(){
