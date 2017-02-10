@@ -1,6 +1,7 @@
 package es.ulpgc.eite.android.quiz.screen.question;
 
 
+import android.content.pm.ActivityInfo;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -39,7 +40,7 @@ public class QuestionActivityTest4 {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.buttonNext), withText("Next"), isDisplayed()));
         appCompatButton.perform(click());
-
+        rotateToLandscape();
         ViewInteraction textView = onView(
                 allOf(withId(R.id.labelQuestion), withText("The Gremlins movie was released in 1986?"),
                         childAtPosition(
@@ -69,6 +70,13 @@ public class QuestionActivityTest4 {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+    private void rotateToLandscape() {
+        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    private void rotateToPortrait() {
+        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 }
