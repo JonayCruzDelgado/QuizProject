@@ -68,7 +68,9 @@ public class QuestionStore  {
   public String getCheatLabel() {
     return cheatLabel;
   }
-
+  public Boolean getCurrentBoleeanAnswer(){
+    return quizAnswers[quizIndex];
+  }
   public String getCurrentAnswer() {
     if(quizAnswers[quizIndex] == userAnswers[quizIndex]) {
       return correctLabel;

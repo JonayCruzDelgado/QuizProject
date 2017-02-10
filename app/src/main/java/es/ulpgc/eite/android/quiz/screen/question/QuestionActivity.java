@@ -63,7 +63,11 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
     onScreenStarted();
 
   }
-
+  @Override
+  protected  void onResume(){
+   super.onResume();
+    checkVisibility();
+  }
   private void onScreenStarted() {
 
 
@@ -90,7 +94,9 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
     getQuestionPresenter().onAnswerBtnClicked(true);
   }
 
-
+  private boolean getCheatLabelVisible(){
+  return quizApp.isAnswerCheatVisible();
+  }
 
   public boolean isAnswerBtnClicked() {
     return quizApp.isAnswerBtnClicked();
@@ -121,6 +127,14 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
 
     quizApp.goToCheatScreen(this);
   }
+  private void checkCheatBtnClicked(){
+    if(getCheatLabelVisible()){
+      showAnswer();
+      setAnswer("Correct!");
+    }else{
+      hideAnswer();
+    }
+  }
  @Override
  public void checkAnswerVisibility(){
     if(!isAnswerVisible()) {
@@ -140,6 +154,7 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
   private void checkVisibility(){
     checkToolbarVisibility();
     checkAnswerVisibility();
+    checkCheatBtnClicked();
   }
 
 //metodos de la vista.

@@ -89,5 +89,25 @@ public class QuizApp extends Application {
     boolean answerVisible;
     boolean answerBtnClicked;
   }
+  public boolean isAnswerCheatVisible() {
+    return questionState.answerVisible;
+  }
+
+  public boolean isToolbarChaeatVisible() {
+    return questionState.toolbarVisible;
+  }
+
+  public boolean isAnsweCheatBtnClicked() {
+    if(cheatState!= null) {
+      return cheatState.answerBtnClicked;
+    }else{
+      return false;
+    }
+  }
+  public void setAnswerCheatVisible(boolean clicked) {
+
+    cheatState.answerVisible = clicked;
+  }
+
 
 }

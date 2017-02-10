@@ -11,11 +11,6 @@ import es.ulpgc.eite.android.quiz.QuizApp;
 import es.ulpgc.eite.android.quiz.R;
 
 public class CheatActivity extends AppCompatActivity {
-
-  private boolean toolbarVisible;
-  private boolean confirmBtnClicked;
-  private boolean answerVisible;
-  private boolean answerBtnClicked;
   private QuizApp quizApp;
 
   private String falseLabel, trueLabel;
@@ -57,8 +52,8 @@ public class CheatActivity extends AppCompatActivity {
   }
 
   private void onScreenStarted() {
-    //quizApp = (QuizApp) getApplication();
-
+    quizApp = (QuizApp) getApplication();
+    trueAnswer = quizApp.getQuestionStore().getCurrentBoleeanAnswer();
     falseLabel = "False";
     trueLabel = "True";
     confirmLabel = "Are you sure?";
@@ -66,24 +61,23 @@ public class CheatActivity extends AppCompatActivity {
     setButtonLabels();
     checkVisibility();
 
-    if(confirmBtnClicked){
+    if(quizApp.isAnswerBtnClicked()){
       setAnswer(getAnswer());
     }
   }
 
   private void onFalseBtnClicked() {
-    finish();
-    //quizApp.backToQuestionScreen(this);
+    quizApp.backToQuestionScreen(this);
   }
 
   private void onTrueBtnClicked() {
     setAnswer(getAnswer());
     setAnswerVisibility(true);
-    confirmBtnClicked = true;
+    quizApp.setAnswerCheatVisible(true);
     checkAnswerVisibility();
   }
 
-  /*
+
   private void setAnswerVisibility(boolean visible) {
     quizApp.setAnswerVisibility(visible);
   }
@@ -94,19 +88,6 @@ public class CheatActivity extends AppCompatActivity {
 
   private boolean isToolbarVisible() {
     return quizApp.isToolbarVisible();
-  }
-  */
-
-  private void setAnswerVisibility(boolean visible) {
-    answerVisible = visible;
-  }
-
-  private boolean isAnswerVisible() {
-    return answerVisible;
-  }
-
-  private boolean isToolbarVisible() {
-    return toolbarVisible;
   }
 
 
