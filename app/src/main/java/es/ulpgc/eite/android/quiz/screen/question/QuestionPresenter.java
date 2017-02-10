@@ -34,6 +34,8 @@ public class QuestionPresenter {
     }
     public void onNextBtnClicked(){
         getQuestionActivity().setQuestion(getQuestionStore().getNextQuestion());
+        getQuestionActivity().setAnswerVisibility(false);
+        getQuestionActivity().checkAnswerVisibility();
     }
     public void start() {
         getQuestionActivity().setQuestion(getQuestionStore().getCurrentQuestion());
