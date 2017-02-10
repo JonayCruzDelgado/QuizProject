@@ -5,17 +5,28 @@ import android.content.Intent;
 
 import es.ulpgc.eite.android.quiz.screen.cheat.CheatActivity;
 import es.ulpgc.eite.android.quiz.screen.question.QuestionActivity;
+import es.ulpgc.eite.android.quiz.screen.question.QuestionPresenter;
 
 public class QuizApp extends Application {
 
   private QuestionState questionState;
   private CheatState cheatState;
   private QuestionStore questionStore;
+  private QuestionPresenter questionPresenter;
 
+  public QuestionActivity getQuestionActivity() {
+    return questionActivity;
+  }
+
+  public void setQuestionActivity(QuestionActivity questionActivity) {
+    this.questionActivity = questionActivity;
+  }
+
+  private QuestionActivity questionActivity;
   @Override
   public void onCreate() {
     super.onCreate();
-
+    questionPresenter = new QuestionPresenter(this);
     questionState = new QuestionState();
     questionState.toolbarVisible = false;
     questionState.answerVisible = false;
@@ -61,6 +72,9 @@ public class QuizApp extends Application {
     activity.finish();
   }
 
+  public QuestionPresenter getQuestionPresenter() {
+    return questionPresenter;
+  }
 
 
   private class QuestionState {

@@ -8,38 +8,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import es.ulpgc.eite.android.quiz.screen.cheat.CheatActivity;
 import es.ulpgc.eite.android.quiz.QuestionStore;
+import es.ulpgc.eite.android.quiz.QuizApp;
+import es.ulpgc.eite.android.quiz.screen.cheat.CheatActivity;
+
 import es.ulpgc.eite.android.quiz.R;
 
 public class QuestionActivity extends AppCompatActivity  implements I_QuestionActivity{
 
-
-  private boolean toolbarVisible;
-  private boolean answerVisible;
-  private boolean answerBtnClicked;
-
   private Toolbar toolbarScreen;
   private Button buttonTrue, buttonFalse, buttonCheat, buttonNext;
   private TextView labelQuestion, labelAnswer;
-  //private QuizApp quizApp;
-  private QuestionPresenter myQuestionPresenter;
+  private QuizApp quizApp;
+
 
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_question);
-
-
+    quizApp = (QuizApp) getApplication();
+    quizApp.setQuestionActivity(this);
     labelQuestion = (TextView) findViewById(R.id.labelQuestion);
     labelAnswer = (TextView) findViewById(R.id.labelAnswer);
-
     toolbarScreen = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbarScreen);
-
-    myQuestionPresenter = new QuestionPresenter();
-    myQuestionPresenter.setMyQuestionActivity(this);
     buttonTrue = (Button) findViewById(R.id.buttonTrue);
     buttonTrue.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -65,7 +58,7 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
     buttonNext.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        myQuestionPresenter.onNextBtnClicked();
+        getQuestionPresenter().onNextBtnClicked();
       }
     });
 
@@ -74,15 +67,17 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
   }
 
   private void onScreenStarted() {
-    //quizApp = (QuizApp) getApplication();
 
-    myQuestionPresenter.setButtonLabels();
+
+    getQuestionPresenter().setButtonLabels();
     checkVisibility();
-    myQuestionPresenter.start();
+    getQuestionPresenter().start();
 
   }
 
-
+  private QuestionPresenter getQuestionPresenter(){
+    return quizApp.getQuestionPresenter();
+}
 
 
   private void onCheatBtnClicked() {
@@ -90,40 +85,20 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
   }
 
   private void onFalseBtnClicked() {
-    myQuestionPresenter.onAnswerBtnClicked(false);
+    getQuestionPresenter().onAnswerBtnClicked(false);
   }
 
   private void onTrueBtnClicked() {
-    myQuestionPresenter.onAnswerBtnClicked(true);
+    getQuestionPresenter().onAnswerBtnClicked(true);
   }
 
-  @Override
-  public boolean isAnswerVisible() {
-    return answerVisible;
-  }
 
-  private boolean isToolbarVisible() {
-    return toolbarVisible;
-  }
-  @Override
-  public void setAnswerVisibility(boolean visible) {
-    answerVisible = visible;
-  }
-  @Override
+
   public boolean isAnswerBtnClicked() {
-    return answerBtnClicked;
-  }
-  @Override
-  public void setAnswerBtnClicked(boolean clicked) {
-    answerBtnClicked = clicked;
-  }
-
-  /*
-  private boolean isAnswerBtnClicked() {
     return quizApp.isAnswerBtnClicked();
   }
 
-  private void setAnswerBtnClicked(boolean clicked) {
+  public void setAnswerBtnClicked(boolean clicked) {
     quizApp.setAnswerBtnClicked(clicked);
   }
 
@@ -135,14 +110,14 @@ public class QuestionActivity extends AppCompatActivity  implements I_QuestionAc
     return quizApp.isToolbarVisible();
   }
 
-  private void setAnswerVisibility(boolean visible) {
+  public void setAnswerVisibility(boolean visible) {
     quizApp.setAnswerVisibility(visible);
   }
 
-  private boolean isAnswerVisible() {
+  public boolean isAnswerVisible() {
     return quizApp.isAnswerVisible();
   }
-  */
+
 
   private void goToCheatScreen(){
     startActivity(new Intent(this, CheatActivity.class));
